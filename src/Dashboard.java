@@ -51,18 +51,17 @@ public class Dashboard extends JFrame {
         panel.add(itemsButton);
         panel.add(logoutButton);
 
-        if ("admin".equalsIgnoreCase(userRole)) {
-            JButton adminButton = new JButton("Admin Panel");
+        
+       if ("admin".equalsIgnoreCase(userRole)) {
+           JButton adminButton = new JButton("Admin Panel");
 
-            adminButton.addActionListener(e -> {
-                JOptionPane.showMessageDialog(
-                        this,
-                        "Admin access granted."
-                );
-            });
+           adminButton.addActionListener(e -> {
+           new AdminVerificationFrame().setVisible(true);
+           });
 
-            panel.add(adminButton);
+         panel.add(adminButton);
         }
+
 
         add(panel);
     }
