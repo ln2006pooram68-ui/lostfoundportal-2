@@ -110,11 +110,14 @@ this, "Database error: " + ex.getMessage()
 }
 }
 
+
 public static void main(String[] args) {
-SwingUtilities.invokeLater(() ->
-new Login().setVisible(true)
-);
+    SwingUtilities.invokeLater(() -> {
+        AdminSetup.createAdmin();
+        new Login().setVisible(true);
+    });
 }
+
 }
 
 
