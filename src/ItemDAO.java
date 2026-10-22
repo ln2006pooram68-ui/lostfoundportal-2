@@ -75,5 +75,37 @@ public boolean deleteReturnedItem(int itemId, int userId) {
     }
 }
 
+public boolean approveItem(int itemId) {
+    String sql = "UPDATE items SET status = 'APPROVED' WHERE id = ?";
+
+    try (
+        Connection con = DBConnection.getInstance().getConnection();
+        PreparedStatement ps = con.prepareStatement(sql)
+    ) {
+        ps.setInt(1, itemId);
+        return ps.executeUpdate() > 0;
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
+    }
+}
+
+public boolean rejectItem(int itemId) {
+    String sql = "UPDATE items SET status = 'REJECTED' WHERE id = ?";
+
+    try (
+        Connection con = DBConnection.getInstance().getConnection();
+        PreparedStatement ps = con.prepareStatement(sql)
+    ) {
+        ps.setInt(1, itemId);
+        return ps.executeUpdate() > 0;
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
+    }
+}
+
 
 }
