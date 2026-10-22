@@ -98,5 +98,35 @@ public int getTotalVotes(int itemId) {
     return 0;
 }
 
+    public int getVoteCount(int itemId) {
+        return getTotalVotes(itemId);
+    }
+
+    public boolean hasUserVoted(int itemId, int userId) {
+
+        String sql = "SELECT COUNT(*) FROM verification_votes "
+                + "WHERE item_id = ? AND user_id = ?";
+
+        try (Connection con =
+                     DBConnection.getInstance().getConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+            pstmt.setInt(1, itemId);
+            pstmt.setInt(2, userId);
+
+            try (java.sql.ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error checking whether user voted:");
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
 
 }
